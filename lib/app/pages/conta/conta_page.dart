@@ -1,6 +1,8 @@
+import 'package:app/app/pages/conta/conta_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class ContaPage extends StatelessWidget {
+class ContaPage extends GetView<ContaController> {
   const ContaPage({super.key});
 
   @override
@@ -10,10 +12,10 @@ class ContaPage extends StatelessWidget {
         backgroundColor: Colors.white70,
         centerTitle: true,
         title: const Text('Maritimum'),
-        actions: const [
+        actions: [
           IconButton(
-            onPressed: null,
-            icon: Icon(
+            onPressed: controller.logout,
+            icon: const Icon(
               Icons.logout,
               color: Colors.teal,
             ),

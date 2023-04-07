@@ -1,10 +1,9 @@
-import 'package:app/app/models/pessoa_model.dart';
 import 'package:app/app/repositories/interfaces/ipessoa_repository.dart';
 import 'package:app/app/services/shared_pref_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginController extends GetxController {
+class LoginController extends GetxController with StateMixin {
   late IPessoaRepository pessoaRepository;
 
   LoginController(this.pessoaRepository);
@@ -16,26 +15,28 @@ class LoginController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    sendTo(await isAuth());
+    isAuth();
   }
 
-  Future<bool> isAuth() async {
-    return await SharedPrefService.isAuth();
+  void isAuth() async {
+    change([], status: RxStatus.loading());
+
+    try {
+      var isAuth = await SharedPrefService.isAuth();
+
+      if (isAuth) Get.offAllNamed('/home');
+      change([], status: RxStatus.success());
+    } catch (e) {
+      change([], status: RxStatus.error('Erro Shared Preferences'));
+    }
   }
 
   void login() async {
-    Pessoa? pessoa = await pessoaRepository.login(
+    bool pessoa = await pessoaRepository.login(
       emailTextController.text,
       passwordTextController.text,
     );
 
-    if (pessoa != null) {
-      SharedPrefService.save(emailTextController.text);
-      Get.offNamed('/home');
-    }
-  }
-
-  void sendTo(bool isAuth) {
-    if (isAuth) Get.offNamed('/home');
+    if (pessoa) Get.offAllNamed('/home');
   }
 }

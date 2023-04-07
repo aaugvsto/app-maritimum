@@ -1,12 +1,13 @@
 import 'package:app/app/models/pessoa_model.dart';
 import 'package:app/app/repositories/interfaces/ipessoa_repository.dart';
+import 'package:app/app/services/shared_pref_service.dart';
 import 'package:http/http.dart' as http;
 
 class PessoaRepository implements IPessoaRepository {
   final String _url = '172.27.192.1:3231';
 
   @override
-  Future<Pessoa?> login(String email, String password) async {
+  Future<bool> login(String email, String password) async {
     final Map<String, dynamic> queryParameters = {
       'email': email,
       'password': password,
@@ -16,9 +17,12 @@ class PessoaRepository implements IPessoaRepository {
 
     final res = await http.get(uri);
 
-    if (res.statusCode == 200) return Pessoa.fromJson(res.body);
+    if (res.statusCode == 200) {
+      await SharedPrefService.save(email);
+      return true;
+    }
 
-    return null;
+    return false;
   }
 
   @override

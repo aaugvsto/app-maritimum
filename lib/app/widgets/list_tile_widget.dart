@@ -29,7 +29,7 @@ class ListTileWidget extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               decoration: const BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage("assets/images/cruzeiro.jpg"),
+                      image: AssetImage("assets/cruzeiro.jpg"),
                       fit: BoxFit.fitWidth,
                       opacity: .8),
                   color: Colors.black,

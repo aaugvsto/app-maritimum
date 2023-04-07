@@ -1,4 +1,3 @@
-import 'package:app/app/pages/dashboard/dashboard_page.dart';
 import 'package:app/app/pages/login/login_controller.dart';
 import 'package:app/app/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +15,8 @@ class LoginPage extends GetView<LoginController> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
           child: SingleChildScrollView(
-            child: Center(
-              child: Column(
+            child: controller.obx(
+              (state) => Column(
                 children: [
                   const Icon(
                     Icons.anchor,
