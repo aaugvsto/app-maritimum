@@ -2,15 +2,15 @@
 import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatelessWidget {
-  TextEditingController controller;
-  bool? obscureText;
-  String? hintText;
-  double? paddingLeft;
-  double? paddingTop;
-  double? paddingRight;
-  double? paddingBottom;
+  final TextEditingController controller;
+  final bool? obscureText;
+  final String? hintText;
+  final double? paddingLeft;
+  final double? paddingTop;
+  final double? paddingRight;
+  final double? paddingBottom;
 
-  TextFieldWidget({
+  const TextFieldWidget({
     Key? key,
     required this.controller,
     this.obscureText,

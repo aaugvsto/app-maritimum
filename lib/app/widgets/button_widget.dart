@@ -2,18 +2,18 @@
 import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget {
-  Color backgroundColor;
-  Color iconColor;
-  Color textColor;
-  String label;
-  IconData icon;
-  dynamic onPressed;
-  double? paddingLeft;
-  double? paddingTop;
-  double? paddingRight;
-  double? paddingBottom;
+  final Color backgroundColor;
+  final Color iconColor;
+  final Color textColor;
+  final String label;
+  final IconData icon;
+  final dynamic onPressed;
+  final double? paddingLeft;
+  final double? paddingTop;
+  final double? paddingRight;
+  final double? paddingBottom;
 
-  ButtonWidget({
+  const ButtonWidget({
     Key? key,
     required this.backgroundColor,
     required this.iconColor,
