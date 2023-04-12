@@ -1,18 +1,23 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 //ignore: must_be_immutable
-class ListTileWidget extends StatelessWidget {
+class ListTileViagemWidget extends StatelessWidget {
   String title;
   String dataPartida;
   String dataChegada;
   String preco;
+  Function()? onTap;
+  IconData favoriteIcon;
 
-  ListTileWidget({
+  ListTileViagemWidget({
     Key? key,
     required this.title,
     required this.dataPartida,
     required this.dataChegada,
     required this.preco,
+    this.onTap,
+    required this.favoriteIcon,
   }) : super(key: key);
 
   @override
@@ -47,12 +52,12 @@ class ListTileWidget extends StatelessWidget {
                           fontSize: 24,
                         ),
                       ),
-                      const InkWell(
-                        onTap: null,
+                      InkWell(
+                        onTap: onTap,
                         child: CircleAvatar(
                           backgroundColor: Colors.white,
                           child: Icon(
-                            Icons.favorite_border_outlined,
+                            favoriteIcon,
                             color: Colors.red,
                           ),
                         ),

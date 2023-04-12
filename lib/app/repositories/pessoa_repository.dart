@@ -18,7 +18,7 @@ class PessoaRepository implements IPessoaRepository {
     final res = await http.get(uri);
 
     if (res.statusCode == 200) {
-      await SharedPrefService.save(email);
+      await SharedPrefService.saveUser(email);
       return true;
     }
 

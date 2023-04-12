@@ -1,10 +1,9 @@
+import 'package:app/app/models/cruzeiro_model.dart';
 import 'package:app/app/pages/viagens/viagens_controller.dart';
+import 'package:app/app/widgets/list_tile_viagem_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-
-import '../../models/cruzeiro_model.dart';
-import '../../widgets/list_tile_widget.dart';
 
 class ViagensPage extends GetView<ViagensController> {
   const ViagensPage({super.key});
@@ -17,11 +16,17 @@ class ViagensPage extends GetView<ViagensController> {
           itemCount: state.length,
           itemBuilder: (_, index) {
             final Cruzeiro item = state[index];
-            return ListTileWidget(
+            return ListTileViagemWidget(
               title: item.nomeExpedicao,
-              dataPartida: DateFormat.yMd().format(item.dataChegada),
-              dataChegada: DateFormat.yMd().format(item.dataPartida),
+              dataPartida:
+                  DateFormat.yMd().format(DateTime.parse(item.dataPartida)),
+              dataChegada:
+                  DateFormat.yMd().format(DateTime.parse(item.dataChegada)),
               preco: item.preco.toStringAsFixed(2),
+              onTap: () => controller.putInFavorite(item),
+              favoriteIcon: item.userFavorited
+                  ? Icons.favorite
+                  : Icons.favorite_border_outlined,
             );
           },
         ),
