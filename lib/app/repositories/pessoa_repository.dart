@@ -4,7 +4,7 @@ import 'package:app/app/services/shared_pref_service.dart';
 import 'package:http/http.dart' as http;
 
 class PessoaRepository implements IPessoaRepository {
-  final String _url = '172.27.192.1:3231';
+  final String _url = '192.168.18.106:3231';
 
   @override
   Future<bool> login(String email, String password) async {
@@ -38,5 +38,20 @@ class PessoaRepository implements IPessoaRepository {
     if (res.statusCode == 200) return true;
 
     return false;
+  }
+
+  @override
+  Future<bool> createOrUpdate() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Pessoa>> findById() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Pessoa>> getAll() {
+    throw UnimplementedError();
   }
 }

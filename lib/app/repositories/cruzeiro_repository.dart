@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:app/app/models/cruzeiro_model.dart';
 import 'package:app/app/repositories/interfaces/icruzeiro_repository.dart';
-import 'package:app/app/services/shared_pref_service.dart';
 import 'package:http/http.dart' as http;
 
 class CruzeiroRepository implements ICruzeiroRepository {
@@ -20,21 +19,19 @@ class CruzeiroRepository implements ICruzeiroRepository {
           )
           .toList();
 
-      List<Cruzeiro> userFavorites = await SharedPrefService.getUserFavorites();
-
-      if (userFavorites.isNotEmpty) {
-        for (var item in lista) {
-          for (var itemf in userFavorites) {
-            if (item.id == itemf.id) {
-              item.userFavorited = true;
-            }
-          }
-        }
-      }
-
       return lista;
     } else {
       throw Exception('Error!');
     }
+  }
+
+  @override
+  Future<bool> createOrUpdate() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Cruzeiro>> findById() {
+    throw UnimplementedError();
   }
 }

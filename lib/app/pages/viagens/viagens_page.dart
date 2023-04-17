@@ -23,7 +23,7 @@ class ViagensPage extends GetView<ViagensController> {
               dataChegada:
                   DateFormat.yMd().format(DateTime.parse(item.dataChegada)),
               preco: item.preco.toStringAsFixed(2),
-              onTap: () => controller.putInFavorite(item),
+              onTap: () {},
               favoriteIcon: item.userFavorited
                   ? Icons.favorite
                   : Icons.favorite_border_outlined,

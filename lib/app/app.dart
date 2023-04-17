@@ -42,7 +42,7 @@ class _AppState extends State<App> {
             name: '/register',
             page: () => const RegisterPage(),
             binding: RegisterBinginds(),
-          )
+          ),
         ],
       ),
     );
