@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 class CruzeiroRepository implements ICruzeiroRepository {
   @override
   Future<List<Cruzeiro>> getAll() async {
-    const url = "http://192.168.18.106:3231/api/Cruzeiro/GetAll";
+    const url = "http://10.30.21.108:3231/api/Cruzeiro/GetAll";
 
     final response = await http.get(Uri.parse(url));
 
@@ -31,7 +31,22 @@ class CruzeiroRepository implements ICruzeiroRepository {
   }
 
   @override
-  Future<List<Cruzeiro>> findById() {
-    throw UnimplementedError();
+  Future<Cruzeiro?> findById(int id) async {
+    const url = "10.30.21.108:3231";
+
+    final queryParameters = {'id': id.toString()};
+
+    final uri = Uri.http(url, "/api/Cruzeiro/GetById", queryParameters);
+    Map<String, String> headers = {'Content-Type': 'application/json'};
+
+    final response = await http.get(uri, headers: headers);
+    Cruzeiro? cruzeiro;
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> responseBody = jsonDecode(response.body);
+      cruzeiro = Cruzeiro.fromMap(responseBody);
+    }
+
+    return cruzeiro;
   }
 }

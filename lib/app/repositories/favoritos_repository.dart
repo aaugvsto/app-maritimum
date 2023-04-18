@@ -9,7 +9,7 @@ class FavoritosRepository implements IFavoritosRepository {
   }
 
   @override
-  Future<List<Cruzeiro>> findById() {
+  Future<Cruzeiro?> findById(int id) {
     // TODO: implement findById
     throw UnimplementedError();
   }

@@ -24,9 +24,7 @@ class FavoritosPage extends GetView<FavoritoController> {
                   DateFormat.yMd().format(DateTime.parse(item.dataChegada)),
               preco: item.preco.toStringAsFixed(2),
               onTap: () => controller.putOrRemoveFavorite(item),
-              favoriteIcon: item.userFavorited
-                  ? Icons.favorite
-                  : Icons.favorite_border_outlined,
+              favoriteIcon: Icons.favorite,
             );
           },
         ),
