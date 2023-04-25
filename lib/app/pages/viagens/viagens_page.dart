@@ -12,23 +12,26 @@ class ViagensPage extends GetView<ViagensController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: controller.obx(
-        (state) => ListView.builder(
-          itemCount: state.length,
-          itemBuilder: (_, index) {
-            final Cruzeiro item = state[index];
-            return ListTileViagemWidget(
-              title: item.nomeExpedicao,
-              dataPartida:
-                  DateFormat.yMd().format(DateTime.parse(item.dataPartida)),
-              dataChegada:
-                  DateFormat.yMd().format(DateTime.parse(item.dataChegada)),
-              preco: item.preco.toStringAsFixed(2),
-              onTap: () {},
-              favoriteIcon: item.userFavorited
-                  ? Icons.favorite
-                  : Icons.favorite_border_outlined,
-            );
-          },
+        (state) => RefreshIndicator(
+          onRefresh: controller.findCruzeiros,
+          child: ListView.builder(
+            itemCount: state.length,
+            itemBuilder: (_, index) {
+              final Cruzeiro item = state[index];
+              return ListTileViagemWidget(
+                title: item.nomeExpedicao,
+                dataPartida:
+                    DateFormat.yMd().format(DateTime.parse(item.dataPartida)),
+                dataChegada:
+                    DateFormat.yMd().format(DateTime.parse(item.dataChegada)),
+                preco: item.preco.toStringAsFixed(2),
+                onTap: () => controller.addOrRemoveInFavorites(item, false),
+                favoriteIcon: item.userFavorited
+                    ? Icons.favorite
+                    : Icons.favorite_border_outlined,
+              );
+            },
+          ),
         ),
         onError: (error) {
           return Center(child: Text(error.toString()));

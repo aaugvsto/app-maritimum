@@ -13,9 +13,13 @@ class DashboardBindings implements Bindings {
   void dependencies() {
     Get.lazyPut<DashboardController>(() => DashboardController());
     Get.lazyPut<ICruzeiroRepository>(() => CruzeiroRepository());
-    Get.lazyPut<ViagensController>(() => ViagensController(Get.find()));
-    Get.lazyPut<ContaController>(() => ContaController());
     Get.lazyPut<IPessoaRepository>(() => PessoaRepository());
-    Get.lazyPut<FavoritoController>(() => FavoritoController(Get.find()));
+    Get.lazyPut<FavoritosController>(
+      () => FavoritosController(Get.find()),
+    );
+    Get.lazyPut<ViagensController>(
+      () => ViagensController(Get.find(), Get.find(), Get.find()),
+    );
+    Get.lazyPut<ContaController>(() => ContaController());
   }
 }

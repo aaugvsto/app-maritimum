@@ -7,4 +7,6 @@ abstract class IPessoaRepository implements IBaseInferface<Pessoa> {
   Future<bool> register(Pessoa pessoa);
   Future<List<Cruzeiro?>> getFavorites(String email);
   Future<Pessoa?> getByEmail(String email);
+  Future<bool> removeFavorite(int idCruzeiro, String userEmail);
+  Future<bool> addFavorite(int idCruzeiro, String userEmail);
 }

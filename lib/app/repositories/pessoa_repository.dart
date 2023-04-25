@@ -8,7 +8,7 @@ import 'package:app/app/services/shared_pref_service.dart';
 import 'package:http/http.dart' as http;
 
 class PessoaRepository implements IPessoaRepository {
-  final String _url = '10.30.21.108:3231';
+  final String _url = '192.168.18.253:3231';
 
   @override
   Future<bool> login(String email, String password) async {
@@ -22,7 +22,8 @@ class PessoaRepository implements IPessoaRepository {
     final res = await http.get(uri);
 
     if (res.statusCode == 200) {
-      await SharedPrefService.saveUser(email);
+      var body = jsonDecode(res.body);
+      await SharedPrefService.saveUser(body['id'], email);
       return true;
     }
 
@@ -75,21 +76,6 @@ class PessoaRepository implements IPessoaRepository {
   }
 
   @override
-  Future<bool> createOrUpdate() {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Pessoa?> findById(int id) {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<Pessoa>> getAll() {
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Pessoa?> getByEmail(String email) async {
     Map<String, String> queryParameters = {'email': email};
 
@@ -102,5 +88,72 @@ class PessoaRepository implements IPessoaRepository {
     if (res.statusCode == 200) return Pessoa.fromJson(res.body);
 
     return null;
+  }
+
+  @override
+  Future<bool> removeFavorite(int cruzeiroId, String userEmail) async {
+    Map<String, String> queryParameters = {
+      'idCruzeiro': cruzeiroId.toString(),
+      'userEmail': userEmail,
+    };
+
+    final uri = Uri.http(_url, 'api/PessoaFavoritos/Delete', queryParameters);
+    Map<String, String> headers = {'Content-Type': 'application/json'};
+
+    try {
+      final res = await http.post(uri, headers: headers);
+
+      if (res.statusCode == 200) return true;
+
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> addFavorite(int idCruzeiro, String email) async {
+    var user = await getByEmail(email);
+
+    if (user != null) {
+      final uri = Uri.http(
+        _url,
+        'api/PessoaFavoritos/Create',
+      );
+
+      try {
+        final res = await http.post(
+          uri,
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({
+            'id': 0,
+            'cruzeiroId': idCruzeiro,
+            'pessoaId': user.id,
+          }),
+        );
+
+        if (res.statusCode == 200) return true;
+
+        return false;
+      } catch (e) {
+        return false;
+      }
+    }
+    return false;
+  }
+
+  @override
+  Future<bool> createOrUpdate() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Pessoa?> findById(int id) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Pessoa>> getAll() {
+    throw UnimplementedError();
   }
 }

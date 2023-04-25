@@ -3,10 +3,10 @@ import 'package:app/app/repositories/interfaces/ipessoa_repository.dart';
 import 'package:app/app/services/shared_pref_service.dart';
 import 'package:get/get.dart';
 
-class FavoritoController extends GetxController with StateMixin {
+class FavoritosController extends GetxController with StateMixin {
   final IPessoaRepository _pessoaRepository;
 
-  FavoritoController(this._pessoaRepository);
+  FavoritosController(this._pessoaRepository);
 
   List<Cruzeiro?> favorites = [];
 
@@ -16,23 +16,27 @@ class FavoritoController extends GetxController with StateMixin {
     getUserFavorites();
   }
 
-  putOrRemoveFavorite(Cruzeiro cruzeiro) async {}
+  removeFavorite(Cruzeiro cruzeiro) async {
+    var userEmail = await SharedPrefService.getCurrentUser();
+
+    await _pessoaRepository.removeFavorite(cruzeiro.id, userEmail);
+
+    getUserFavorites();
+    cruzeiro.userFavorited = false;
+    update();
+  }
 
   Future<void> getUserFavorites() async {
     change([], status: RxStatus.loading());
 
     var curUser = await SharedPrefService.getCurrentUser();
-    if (curUser != null) {
-      favorites = await _pessoaRepository.getFavorites(curUser);
-      if (favorites.isNotEmpty) {
-        change(favorites, status: RxStatus.success());
-      } else {
-        change([], status: RxStatus.empty());
-      }
+
+    favorites = await _pessoaRepository.getFavorites(curUser);
+    if (favorites.isNotEmpty) {
+      change(favorites, status: RxStatus.success());
     } else {
       change([], status: RxStatus.empty());
     }
-
     update();
   }
 }
