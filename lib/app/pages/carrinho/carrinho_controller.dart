@@ -1,3 +1,7 @@
 import 'package:get/get.dart';
 
-class Carrinho extends GetxController {}
+class CarrinhoController extends GetxController with StateMixin {
+  CarrinhoController();
+
+  bool freteCalculado = false;
+}

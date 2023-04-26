@@ -1,3 +1,4 @@
+import 'package:app/app/pages/carrinho/carrinho_controller.dart';
 import 'package:app/app/pages/favoritos/favoritos_controller.dart';
 import 'package:app/app/pages/viagens/viagens_controller.dart';
 import 'package:app/app/repositories/cruzeiro_repository.dart';
@@ -21,5 +22,6 @@ class DashboardBindings implements Bindings {
       () => ViagensController(Get.find(), Get.find(), Get.find()),
     );
     Get.lazyPut<ContaController>(() => ContaController());
+    Get.lazyPut<CarrinhoController>(() => CarrinhoController());
   }
 }
