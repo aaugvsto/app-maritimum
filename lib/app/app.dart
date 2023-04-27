@@ -4,6 +4,8 @@ import 'package:app/app/pages/login/login_bidings.dart';
 import 'package:app/app/pages/login/login_page.dart';
 import 'package:app/app/pages/register/register_bindings.dart';
 import 'package:app/app/pages/register/register_page.dart';
+import 'package:app/app/pages/viagem_detalhe/viagem_detalhe_bindings.dart';
+import 'package:app/app/pages/viagem_detalhe/viagem_detalhe_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -42,6 +44,11 @@ class _AppState extends State<App> {
             name: '/register',
             page: () => const RegisterPage(),
             binding: RegisterBinginds(),
+          ),
+          GetPage(
+            name: '/detalhes',
+            page: () => ViagemDetalhePage(),
+            binding: ViagemDetalhesBinding(),
           ),
         ],
       ),

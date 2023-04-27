@@ -18,17 +18,20 @@ class ViagensPage extends GetView<ViagensController> {
             itemCount: state.length,
             itemBuilder: (_, index) {
               final Cruzeiro item = state[index];
-              return ListTileViagemWidget(
-                title: item.nomeExpedicao,
-                dataPartida:
-                    DateFormat.yMd().format(DateTime.parse(item.dataPartida)),
-                dataChegada:
-                    DateFormat.yMd().format(DateTime.parse(item.dataChegada)),
-                preco: item.preco.toStringAsFixed(2),
-                onTap: () => controller.addOrRemoveInFavorites(item, false),
-                favoriteIcon: item.userFavorited
-                    ? Icons.favorite
-                    : Icons.favorite_border_outlined,
+              return InkWell(
+                onTap: () => Get.toNamed('/detalhes', arguments: item),
+                child: ListTileViagemWidget(
+                  title: item.nomeExpedicao,
+                  dataPartida:
+                      DateFormat.yMd().format(DateTime.parse(item.dataPartida)),
+                  dataChegada:
+                      DateFormat.yMd().format(DateTime.parse(item.dataChegada)),
+                  preco: item.preco.toStringAsFixed(2),
+                  onTap: () => controller.addOrRemoveInFavorites(item, false),
+                  favoriteIcon: item.userFavorited
+                      ? Icons.favorite
+                      : Icons.favorite_border_outlined,
+                ),
               );
             },
           ),

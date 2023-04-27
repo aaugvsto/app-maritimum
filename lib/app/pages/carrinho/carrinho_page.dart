@@ -16,13 +16,14 @@ class CarrinhoPage extends GetView<CarrinhoController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
                 'Meu Carrinho',
                 style: TextStyle(fontWeight: FontWeight.w900, fontSize: 22),
               ),
-              ListaPedidosWidget(),
-              Divider(),
+              controller.obx(
+                (state) => ListaPedidosWidget(lista: state),
+              ),
               ResumoPedidoWidget(),
             ],
           ),

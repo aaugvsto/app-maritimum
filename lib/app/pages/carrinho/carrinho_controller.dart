@@ -1,7 +1,22 @@
+import 'package:app/app/repositories/interfaces/icarrinho_repository.dart';
 import 'package:get/get.dart';
 
 class CarrinhoController extends GetxController with StateMixin {
-  CarrinhoController();
+  final ICarrinhoRepository _carrinhoRepository;
 
-  bool freteCalculado = false;
+  CarrinhoController(this._carrinhoRepository);
+
+  @override
+  void onInit() {
+    super.onInit();
+    getCarrinhoUser();
+  }
+
+  Future<void> getCarrinhoUser() async {
+    change([], status: RxStatus.loading());
+
+    var carrinho = await _carrinhoRepository.getListaUserPedidos();
+
+    change(carrinho, status: RxStatus.success());
+  }
 }

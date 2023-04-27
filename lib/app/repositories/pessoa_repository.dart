@@ -23,7 +23,7 @@ class PessoaRepository implements IPessoaRepository {
 
     if (res.statusCode == 200) {
       var body = jsonDecode(res.body);
-      await SharedPrefService.saveUser(body['id'], email);
+      await SharedPrefService.saveUser(body['id'], email, body['nome']);
       return true;
     }
 

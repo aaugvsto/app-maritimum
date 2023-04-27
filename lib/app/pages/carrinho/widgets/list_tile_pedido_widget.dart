@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../../models/cruzeiro_pedido_model.dart';
+
 class ListTilePedido extends StatefulWidget {
-  const ListTilePedido({super.key});
+  final CruzeiroPedido item;
+
+  const ListTilePedido({super.key, required this.item});
 
   @override
   State<ListTilePedido> createState() => _ListTilePedidoState();
@@ -69,7 +73,7 @@ class _ListTilePedidoState extends State<ListTilePedido> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    'Cruzeiro América Latina',
+                    widget.item.nomeExpedicao,
                     style: TextStyle(
                       fontWeight: FontWeight.w900,
                       fontSize: 18,
@@ -80,7 +84,7 @@ class _ListTilePedidoState extends State<ListTilePedido> {
                   Container(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Total: R\$ 1.000,00',
+                      widget.item.valorTotal.toString(),
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
                         fontSize: 18,

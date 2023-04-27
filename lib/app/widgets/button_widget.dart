@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget {
-  final Color backgroundColor;
-  final Color iconColor;
-  final Color textColor;
+  final Color? backgroundColor;
+  final Color? iconColor;
+  final Color? textColor;
   final String label;
   final IconData icon;
   final dynamic onPressed;
@@ -15,9 +15,9 @@ class ButtonWidget extends StatelessWidget {
 
   const ButtonWidget({
     Key? key,
-    required this.backgroundColor,
-    required this.iconColor,
-    required this.textColor,
+    this.backgroundColor,
+    this.iconColor,
+    this.textColor,
     required this.label,
     required this.icon,
     required this.onPressed,
@@ -44,14 +44,16 @@ class ButtonWidget extends StatelessWidget {
         label: Text(
           label,
           style: TextStyle(
-            color: textColor,
+            color: textColor ?? Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
+          textAlign: TextAlign.center,
         ),
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(backgroundColor),
-          iconColor: MaterialStateProperty.all(iconColor),
+          backgroundColor:
+              MaterialStateProperty.all(backgroundColor ?? Colors.teal),
+          iconColor: MaterialStateProperty.all(iconColor ?? Colors.white),
         ),
       ),
     );

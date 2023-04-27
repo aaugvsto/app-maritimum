@@ -38,10 +38,10 @@ class ContaPage extends GetView<ContaController> {
                       size: 36,
                     ),
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.fromLTRB(16, 0, 8, 0),
                     child: Text(
-                      'Olá, Augusto',
+                      'Olá, ${controller.userName}',
                       style: TextStyle(fontSize: 22),
                     ),
                   ),

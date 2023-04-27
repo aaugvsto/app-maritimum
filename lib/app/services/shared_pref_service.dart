@@ -5,11 +5,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPrefService {
   static final String _key = 'key';
 
-  static saveUser(int id, String email) async {
+  static saveUser(int id, String email, String name) async {
     var prefs = await SharedPreferences.getInstance();
     prefs.setString(
       _key,
-      jsonEncode({'userId': id, 'userEmail': email, 'isAuth': true}),
+      jsonEncode(
+          {'userId': id, 'userEmail': email, 'name': name, 'isAuth': true}),
     );
   }
 
@@ -40,5 +41,13 @@ class SharedPrefService {
 
     var curUser = jsonDecode(jsonResult!);
     return curUser['userEmail'];
+  }
+
+  static Future<String> getCurrentUserName() async {
+    var prefs = await SharedPreferences.getInstance();
+    var jsonResult = prefs.getString(_key);
+
+    var curUser = jsonDecode(jsonResult!);
+    return curUser['name'];
   }
 }

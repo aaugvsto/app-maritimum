@@ -3,6 +3,14 @@ import 'package:get/get.dart';
 import '../../services/shared_pref_service.dart';
 
 class ContaController extends GetxController with StateMixin {
+  String userName = 'base';
+  @override
+  void onInit() async {
+    super.onInit();
+    userName = await SharedPrefService.getCurrentUserName();
+    update();
+  }
+
   void logout() async {
     change([], status: RxStatus.loading());
 
