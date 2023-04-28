@@ -13,6 +13,7 @@ class ViagensPage extends GetView<ViagensController> {
     return Scaffold(
       body: controller.obx(
         (state) => RefreshIndicator(
+          color: Colors.teal,
           onRefresh: controller.findCruzeiros,
           child: ListView.builder(
             itemCount: state.length,
@@ -27,7 +28,12 @@ class ViagensPage extends GetView<ViagensController> {
                   dataChegada:
                       DateFormat.yMd().format(DateTime.parse(item.dataChegada)),
                   preco: item.preco.toStringAsFixed(2),
-                  onTap: () => controller.addOrRemoveInFavorites(item, false),
+                  onTap: () {
+                    controller.addOrRemoveInFavorites(
+                      item,
+                      false,
+                    );
+                  },
                   favoriteIcon: item.userFavorited
                       ? Icons.favorite
                       : Icons.favorite_border_outlined,
@@ -37,7 +43,8 @@ class ViagensPage extends GetView<ViagensController> {
           ),
         ),
         onError: (error) {
-          return Center(child: Text(error.toString()));
+          controller.findCruzeiros();
+          return Center(child: Text(''));
         },
       ),
     );

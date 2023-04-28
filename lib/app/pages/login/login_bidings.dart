@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 class LoginBindings implements Bindings {
   @override
   void dependencies() {
-    Get.put<IPessoaRepository>(PessoaRepository());
+    Get.lazyPut<IPessoaRepository>(() => PessoaRepository());
     Get.lazyPut<LoginController>(() => LoginController(Get.find()));
   }
 }

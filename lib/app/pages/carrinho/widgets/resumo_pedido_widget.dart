@@ -1,9 +1,13 @@
+import 'package:app/app/models/resumo_pedido.dart';
 import 'package:app/app/widgets/button_widget.dart';
 import 'package:app/app/widgets/text_form_field_widget.dart';
+import 'package:app/app/pages/carrinho/widgets/text_resumo_pedido_widget.dart';
 import 'package:flutter/material.dart';
 
 class ResumoPedidoWidget extends StatelessWidget {
-  const ResumoPedidoWidget({super.key});
+  final ResumoPedido resumo;
+
+  const ResumoPedidoWidget({super.key, required this.resumo});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +16,6 @@ class ResumoPedidoWidget extends StatelessWidget {
     return Column(
       children: [
         Divider(),
-        const SizedBox(height: 16),
         Container(
           alignment: Alignment.centerLeft,
           child: Text(
@@ -20,37 +23,14 @@ class ResumoPedidoWidget extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
           ),
         ),
-        const SizedBox(height: 16),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Subtotal'),
-            Text('R\$ 1.000.00'),
-          ],
-        ),
-        SizedBox(height: 4),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Descontos'),
-            Text('R\$ 1.000.00'),
-          ],
-        ),
-        SizedBox(height: 4),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Frete'),
-            Text('R\$ 1.000.00'),
-          ],
-        ),
-        SizedBox(height: 4),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Total'),
-            Text('R\$ 1.000.00'),
-          ],
+        SizedBox(height: 16),
+        TextResumoPedidoWidget(title: 'Subtotal', valor: resumo.subTotal),
+        TextResumoPedidoWidget(title: 'Descontos', valor: resumo.descontos),
+        Divider(),
+        TextResumoPedidoWidget(
+          title: 'Total',
+          valor: resumo.vlrTotal,
+          bold: true,
         ),
         SizedBox(height: 16),
         Form(

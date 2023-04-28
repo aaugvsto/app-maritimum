@@ -1,5 +1,5 @@
-import 'package:app/app/repositories/hive/hive_config.dart';
 import 'package:flutter/material.dart';
+import 'package:app/app/services/hive_config.dart';
 
 import 'app/app.dart';
 

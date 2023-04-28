@@ -41,18 +41,23 @@ class ListTileViagemWidget extends StatelessWidget {
                   borderRadius:
                       BorderRadius.vertical(top: Radius.circular(12))),
               child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      flex: 9,
+                      child: Text(
                         title,
+                        overflow: TextOverflow.clip,
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 24,
                         ),
                       ),
-                      InkWell(
+                    ),
+                    Expanded(
+                      child: InkWell(
                         onTap: onTap,
                         child: CircleAvatar(
                           backgroundColor: Colors.white,
@@ -62,8 +67,10 @@ class ListTileViagemWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ],
-                  )),
+                    ),
+                  ],
+                ),
+              ),
             ),
             Container(
               decoration: const BoxDecoration(

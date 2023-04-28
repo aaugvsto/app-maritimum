@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class RegisterBinginds implements Bindings {
   @override
   void dependencies() {
-    Get.put<IPessoaRepository>(PessoaRepository());
-    Get.put(RegisterController(Get.find()));
+    Get.lazyPut<IPessoaRepository>(() => PessoaRepository());
+    Get.lazyPut<RegisterController>(() => RegisterController(Get.find()));
   }
 }

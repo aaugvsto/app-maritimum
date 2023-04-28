@@ -7,6 +7,7 @@ abstract class ICarrinhoRepository {
   ICarrinhoRepository(this.box);
 
   Future<void> addInCarrinhoUser(CruzeiroPedido cruzeiroPedido);
-  Future<void> removeFromCarrinho(int idCruzeiro);
   Future<List<CruzeiroPedido>> getListaUserPedidos();
+  Future<void> updateOrRemovePedido(CruzeiroPedido pedido);
+  Future<CruzeiroPedido> getUserPedido(int cruzeiroId);
 }

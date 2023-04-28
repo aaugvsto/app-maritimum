@@ -9,22 +9,46 @@ class CarrinhoPage extends GetView<CarrinhoController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
+    return controller.obx(
+      (state) => Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Row(
+            children: const [
+              Text('Carrinho '),
+              Icon(
+                Icons.shopping_cart_outlined,
+                color: Colors.teal,
+              ),
+            ],
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              children: [
+                ListaPedidosWidget(lista: state['carrinho']),
+                ResumoPedidoWidget(resumo: state['resumo'])
+              ],
+            ),
+          ),
+        ),
+      ),
+      onEmpty: Scaffold(
+        body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(
+                Icons.remove_shopping_cart_outlined,
+                size: 48,
+                color: Colors.teal,
+              ),
               Text(
-                'Meu Carrinho',
-                style: TextStyle(fontWeight: FontWeight.w900, fontSize: 22),
-              ),
-              controller.obx(
-                (state) => ListaPedidosWidget(lista: state),
-              ),
-              ResumoPedidoWidget(),
+                'Nada a exibir aqui\nSeu carrinho está vázio',
+                textAlign: TextAlign.center,
+              )
             ],
           ),
         ),

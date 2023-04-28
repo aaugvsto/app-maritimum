@@ -1,6 +1,6 @@
 import 'package:app/app/pages/carrinho/carrinho_controller.dart';
+import 'package:app/app/pages/conta/conta_controller.dart';
 import 'package:app/app/pages/favoritos/favoritos_controller.dart';
-import 'package:app/app/pages/viagem_detalhe/viagem_detalhe_controller.dart';
 import 'package:app/app/pages/viagens/viagens_controller.dart';
 import 'package:app/app/repositories/carrinho_repository.dart';
 import 'package:app/app/repositories/cruzeiro_repository.dart';
@@ -10,7 +10,6 @@ import 'package:app/app/repositories/interfaces/ipessoa_repository.dart';
 import 'package:app/app/repositories/pessoa_repository.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
-import '../conta/conta_controller.dart';
 import 'dashboard_controller.dart';
 
 class DashboardBindings implements Bindings {

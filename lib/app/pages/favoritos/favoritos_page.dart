@@ -10,11 +10,12 @@ class FavoritosPage extends GetView<FavoritosController> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: RefreshIndicator(
-        onRefresh: controller.getUserFavorites,
-        child: controller.obx(
-          (state) => ListView.builder(
+    return RefreshIndicator(
+      color: Colors.teal,
+      onRefresh: controller.getUserFavorites,
+      child: controller.obx(
+        (state) => Scaffold(
+          body: ListView.builder(
             itemCount: state.length,
             itemBuilder: (_, index) {
               final Cruzeiro item = state[index];
@@ -30,28 +31,31 @@ class FavoritosPage extends GetView<FavoritosController> {
               );
             },
           ),
-          onEmpty: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                iconSize: 60,
-                onPressed: controller.getUserFavorites,
-                icon: const Icon(Icons.refresh_rounded),
-              ),
-              const Text(
-                'Clique aqui para atualizar a página',
-                style: TextStyle(color: Colors.blue),
-              ),
-              const Text('Você ainda não tem favoritos')
-            ],
-          ),
-          onError: (error) {
-            return const Text(
-              'Erro ao remover favorito, por favor recarregue a tela',
-            );
-          },
         ),
+        onEmpty: Scaffold(
+          body: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(
+                  Icons.heart_broken_rounded,
+                  color: Colors.red,
+                  size: 52,
+                ),
+                Text(
+                  'Nada a exibir aqui\nVocê ainda não tem favoritos',
+                  textAlign: TextAlign.center,
+                )
+              ],
+            ),
+          ),
+        ),
+        onError: (error) {
+          return const Text(
+            'Erro ao remover favorito, por favor recarregue a tela',
+          );
+        },
       ),
     );
   }
