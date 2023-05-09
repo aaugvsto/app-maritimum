@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 class CruzeiroRepository implements ICruzeiroRepository {
   @override
   Future<List<Cruzeiro>> getAll() async {
-    const url = "http://192.168.18.253:3231/api/Cruzeiro/GetAll";
+    const url = "http://192.168.18.106:3231/api/Cruzeiro/GetAll";
 
     final response = await http.get(Uri.parse(url));
 
@@ -32,7 +32,7 @@ class CruzeiroRepository implements ICruzeiroRepository {
 
   @override
   Future<Cruzeiro?> findById(int id) async {
-    const url = "192.168.18.253:3231";
+    const url = "192.168.18.106:3231";
 
     final queryParameters = {'id': id.toString()};
 

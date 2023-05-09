@@ -8,6 +8,7 @@ class HiveConfig {
     Directory dir = await pp.getApplicationDocumentsDirectory();
 
     await Hive.openBox('pedidos', path: dir.path);
+    await Hive.openBox('cartoes', path: dir.path);
 
     Hive.init(dir.path);
   }

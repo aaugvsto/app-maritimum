@@ -13,7 +13,9 @@ class CarrinhoPage extends GetView<CarrinhoController> {
       (state) => Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          backgroundColor: Colors.white,
           title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: const [
               Text('Carrinho '),
               Icon(

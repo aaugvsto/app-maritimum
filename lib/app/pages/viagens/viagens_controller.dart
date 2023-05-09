@@ -24,7 +24,7 @@ class ViagensController extends GetxController with StateMixin {
     findCruzeiros();
   }
 
-  Future<void> findCruzeiros() async {
+  Future<void> findCruzeiros({String? nome}) async {
     change([], status: RxStatus.loading());
 
     var curUser = await SharedPrefService.getCurrentUser();
@@ -43,7 +43,20 @@ class ViagensController extends GetxController with StateMixin {
         }
       }
 
-      change(cruzeiros, status: RxStatus.success());
+      var filteredList = [];
+      if (nome != null) {
+        for (var item in cruzeiros) {
+          if (item.nomeExpedicao.contains(nome)) filteredList.add(item);
+        }
+      }
+
+      var res =
+          !filteredList.isNotEmpty && nome != null ? filteredList : cruzeiros;
+
+      change(
+        res,
+        status: res.isNotEmpty ? RxStatus.success() : RxStatus.empty(),
+      );
     } catch (e) {
       change([], status: RxStatus.error('Error ao buscar cruzeiros'));
     }

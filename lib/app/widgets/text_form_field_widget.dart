@@ -4,10 +4,22 @@ import 'package:flutter/material.dart';
 class TextFormFieldWidget extends StatefulWidget {
   final String? hintText;
   final String? labelText;
-  final IconData? suffixIcon;
-  final IconData? prefixIcon;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
   final void Function()? onPressed;
-  final TextInputType textInputType;
+  final TextInputType? textInputType;
+  final Color? borderColor;
+  final Color? suffixIconColor;
+  final Color? prefixIconColor;
+  final Color? hintTextColor;
+  final void Function(String)? onChanged;
+  final bool? marginBottom;
+  final void Function(String)? onEditingComplete;
+  final String? Function(String?)? validator;
+  final TextEditingController? controller;
+  final int? maxLength;
+  final Function()? onTap;
+  final bool? readOnly;
 
   const TextFormFieldWidget({
     Key? key,
@@ -16,7 +28,19 @@ class TextFormFieldWidget extends StatefulWidget {
     this.suffixIcon,
     this.prefixIcon,
     this.onPressed,
-    required this.textInputType,
+    this.textInputType,
+    this.borderColor,
+    this.prefixIconColor,
+    this.hintTextColor,
+    this.suffixIconColor,
+    this.onChanged,
+    this.marginBottom = false,
+    this.onEditingComplete,
+    this.validator,
+    this.controller,
+    this.maxLength,
+    this.onTap,
+    this.readOnly,
   }) : super(key: key);
 
   @override
@@ -24,45 +48,43 @@ class TextFormFieldWidget extends StatefulWidget {
 }
 
 class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
-  Color? suffixColor;
-
-  Color? prefixColor;
-
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: widget.textInputType,
-      decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.black,
+    return Padding(
+      padding: EdgeInsets.only(bottom: widget.marginBottom! ? 22 : 0),
+      child: TextFormField(
+        maxLength: widget.maxLength,
+        validator: widget.validator,
+        controller: widget.controller,
+        onChanged: widget.onChanged,
+        onTap: widget.onTap,
+        readOnly: widget.readOnly ?? false,
+        keyboardType: widget.textInputType ?? TextInputType.name,
+        cursorColor: Colors.teal,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          labelStyle: TextStyle(color: Colors.black),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: widget.borderColor ?? Colors.black,
+            ),
           ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.black,
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: widget.borderColor ?? Colors.black,
+            ),
           ),
+          hintText: widget.hintText,
+          label: widget.labelText != null
+              ? Text(
+                  widget.labelText!,
+                  style: TextStyle(color: widget.hintTextColor),
+                )
+              : null,
+          suffixIcon: widget.suffixIcon,
+          prefixIcon: widget.prefixIcon,
         ),
-        hintText: widget.hintText,
-        label: widget.labelText != null ? Text(widget.labelText!) : null,
-        suffixIcon: widget.suffixIcon != null
-            ? IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  widget.suffixIcon,
-                  color: suffixColor ?? Colors.teal,
-                ),
-              )
-            : null,
-        prefixIcon: widget.prefixIcon != null
-            ? IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  widget.suffixIcon,
-                  color: prefixColor ?? Colors.teal,
-                ),
-              )
-            : null,
       ),
     );
   }

@@ -26,7 +26,7 @@ class ListTileViagemWidget extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: Material(
         elevation: 5,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
         child: Column(
           children: [
             Container(
@@ -38,8 +38,7 @@ class ListTileViagemWidget extends StatelessWidget {
                       fit: BoxFit.fitWidth,
                       opacity: .8),
                   color: Colors.black,
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(12))),
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(8))),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
@@ -74,8 +73,7 @@ class ListTileViagemWidget extends StatelessWidget {
             ),
             Container(
               decoration: const BoxDecoration(
-                borderRadius:
-                    BorderRadius.vertical(bottom: Radius.circular(12)),
+                borderRadius: BorderRadius.vertical(bottom: Radius.circular(8)),
                 color: Colors.white,
               ),
               height: 125,

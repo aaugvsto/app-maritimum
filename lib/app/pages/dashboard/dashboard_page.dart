@@ -39,8 +39,8 @@ class DashboardPage extends StatelessWidget {
 
   final _tabs = const [
     BottomNavigationBarItem(
-      icon: Icon(Icons.home_outlined),
-      label: 'Home',
+      icon: Icon(Icons.directions_boat_rounded),
+      label: 'Destaques',
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.travel_explore_sharp),

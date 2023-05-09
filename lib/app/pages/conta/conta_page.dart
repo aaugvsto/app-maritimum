@@ -9,7 +9,6 @@ class ContaPage extends GetView<ContaController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white70,
         centerTitle: true,
         title: const Text('Maritimum'),
         actions: [
@@ -41,7 +40,7 @@ class ContaPage extends GetView<ContaController> {
                   Padding(
                     padding: EdgeInsets.fromLTRB(16, 0, 8, 0),
                     child: Text(
-                      'Olá, ${controller.userName}',
+                      'Olá, ${controller.userName.split(' ')[0]}',
                       style: TextStyle(fontSize: 22),
                     ),
                   ),
@@ -71,6 +70,15 @@ class ContaPage extends GetView<ContaController> {
                   color: Colors.teal,
                 ),
                 title: Text('Atendimento'),
+              ),
+              ListTile(
+                onTap: () => Get.toNamed('metodos-pagamento'),
+                contentPadding: EdgeInsets.all(0),
+                leading: Icon(
+                  Icons.payment_rounded,
+                  color: Colors.teal,
+                ),
+                title: Text('Pagamento'),
               ),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.center,

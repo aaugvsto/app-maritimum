@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:app/app/models/cartao_model.dart';
 import 'package:app/app/models/cruzeiro_model.dart';
 import 'package:app/app/models/pessoa_model.dart';
 import 'package:app/app/repositories/cruzeiro_repository.dart';
@@ -8,7 +9,7 @@ import 'package:app/app/services/shared_pref_service.dart';
 import 'package:http/http.dart' as http;
 
 class PessoaRepository implements IPessoaRepository {
-  final String _url = '192.168.18.253:3231';
+  final String _url = '192.168.18.106:3231';
 
   @override
   Future<bool> login(String email, String password) async {
@@ -155,5 +156,10 @@ class PessoaRepository implements IPessoaRepository {
   @override
   Future<List<Pessoa>> getAll() {
     throw UnimplementedError();
+  }
+
+  @override
+  Future<Cartao?> getCartoes(String email) {
+    return Future.value(null);
   }
 }

@@ -32,7 +32,7 @@ class ResumoPedidoWidget extends StatelessWidget {
           valor: resumo.vlrTotal,
           bold: true,
         ),
-        SizedBox(height: 16),
+        Divider(),
         Form(
           child: Column(
             key: _formKey,
