@@ -19,6 +19,7 @@ class TextFormFieldWidget extends StatefulWidget {
   final TextEditingController? controller;
   final int? maxLength;
   final Function()? onTap;
+  final dynamic Function(PointerDownEvent)? onTapOutside;
   final bool? readOnly;
 
   const TextFormFieldWidget({
@@ -41,6 +42,7 @@ class TextFormFieldWidget extends StatefulWidget {
     this.maxLength,
     this.onTap,
     this.readOnly,
+    this.onTapOutside,
   }) : super(key: key);
 
   @override
@@ -58,6 +60,7 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
         controller: widget.controller,
         onChanged: widget.onChanged,
         onTap: widget.onTap,
+        onTapOutside: widget.onTapOutside,
         readOnly: widget.readOnly ?? false,
         keyboardType: widget.textInputType ?? TextInputType.name,
         cursorColor: Colors.teal,
@@ -73,6 +76,16 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: widget.borderColor ?? Colors.black,
+            ),
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: widget.borderColor ?? Colors.black,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: widget.borderColor ?? Colors.red,
             ),
           ),
           hintText: widget.hintText,

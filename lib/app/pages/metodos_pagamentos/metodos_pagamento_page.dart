@@ -34,11 +34,10 @@ class MetodoPagamentosPage extends GetView<MetodoPagamentosController> {
                         padding: const EdgeInsets.only(bottom: 16),
                         child: ListTileCardWidget(
                           onTap: () {},
-                          apelido: cartao.apelido!.length > 1
-                              ? cartao.apelido!
-                              : cartao.bandeira.split('.')[0].toUpperCase(),
-                          bandeiraPath: cartao.bandeiraPath ?? '',
-                          tipo: 'Crédito',
+                          apelido: cartao.apelido ??
+                              cartao.bandeira.split('.')[0].toUpperCase(),
+                          bandeiraPath: cartao.bandeiraPath,
+                          tipo: cartao.tipo,
                           numerosFinais: cartao.numero[12] +
                               cartao.numero[13] +
                               cartao.numero[14] +

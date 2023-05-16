@@ -5,7 +5,7 @@ class ListTileCardWidget extends StatelessWidget {
   final String apelido;
   final String tipo;
   final String numerosFinais;
-  final String bandeiraPath;
+  final String? bandeiraPath;
   final void Function()? onPressed;
   final Function()? onTap;
   const ListTileCardWidget({
@@ -27,9 +27,9 @@ class ListTileCardWidget extends StatelessWidget {
       ),
       child: ListTile(
         onTap: onTap,
-        leading: bandeiraPath.isNotEmpty
+        leading: bandeiraPath != null
             ? SvgPicture.asset(
-                bandeiraPath,
+                bandeiraPath!,
                 height: 50,
               )
             : Icon(Icons.credit_card),

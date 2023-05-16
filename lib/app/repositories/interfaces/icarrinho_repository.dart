@@ -10,4 +10,5 @@ abstract class ICarrinhoRepository {
   Future<List<CruzeiroPedido>> getListaUserPedidos();
   Future<void> updateOrRemovePedido(CruzeiroPedido pedido);
   Future<CruzeiroPedido> getUserPedido(int cruzeiroId);
+  Future<void> limparCarrinhoUsuarioLogado();
 }

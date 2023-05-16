@@ -26,11 +26,6 @@ class CruzeiroRepository implements ICruzeiroRepository {
   }
 
   @override
-  Future<bool> createOrUpdate() {
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Cruzeiro?> findById(int id) async {
     const url = "192.168.18.106:3231";
 
@@ -48,5 +43,11 @@ class CruzeiroRepository implements ICruzeiroRepository {
     }
 
     return cruzeiro;
+  }
+
+  @override
+  Future<bool> createOrUpdate(Cruzeiro t) {
+    // TODO: implement createOrUpdate
+    throw UnimplementedError();
   }
 }

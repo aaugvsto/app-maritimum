@@ -68,6 +68,22 @@ class AddCartaoPage extends GetView<AddCartaoController> {
                     ),
                   ],
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 22),
+                  child: DropdownButtonFormField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                          style: BorderStyle.solid,
+                        ),
+                      ),
+                    ),
+                    value: controller.selectedTipoCartao.value,
+                    items: controller.listDropdownItems,
+                    onChanged: (value) => controller.setSelected(value),
+                  ),
+                ),
                 TextFormFieldWidget(
                   labelText: 'Nome do Titular',
                   marginBottom: true,

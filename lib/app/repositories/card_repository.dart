@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:app/app/models/cartao_model.dart';
 import 'package:app/app/repositories/interfaces/icards_repository.dart';
 import 'package:app/app/services/shared_pref_service.dart';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
@@ -14,15 +15,19 @@ class CardRepository implements ICardRepository {
 
   @override
   Future<String?> findCardBrand(int cardNumber) async {
-    String url = 'https://lookup.binlist.net/$cardNumber';
+    try {
+      String url = 'https://lookup.binlist.net/$cardNumber';
 
-    var res = await http.get(Uri.parse(url));
-    var decode = jsonDecode(res.body);
+      var res = await http.get(Uri.parse(url));
+      var decode = jsonDecode(res.body);
 
-    String bandeira = decode['scheme'];
-    var assetLogoPath = _getCardBrand(bandeira);
+      String bandeira = decode['scheme'];
+      var assetLogoPath = _getCardBrand(bandeira);
 
-    return assetLogoPath;
+      return assetLogoPath;
+    } catch (e) {
+      return null;
+    }
   }
 
   String? _getCardBrand(String bandeira) {
@@ -100,6 +105,51 @@ class CardRepository implements ICardRepository {
       return true;
     } catch (e) {
       return false;
+    }
+  }
+
+  @override
+  void setUltimoCartaoUsado(Cartao cartao) async {
+    var ultimoUtilizado = await findUltimoCartaoUsadoUsuario();
+
+    if (ultimoUtilizado != null && (ultimoUtilizado.numero != cartao.numero)) {
+      // Desvincula ultimo selecionado
+      _updateCartaoStatusSelecionado(ultimoUtilizado, false);
+      // Vincula nome selecionado
+      _updateCartaoStatusSelecionado(cartao, true);
+    }
+
+    // Caso pessoa ainda não tenha selecionado um cartão aqui vincula
+    if (ultimoUtilizado == null) _updateCartaoStatusSelecionado(cartao, true);
+  }
+
+  _updateCartaoStatusSelecionado(Cartao cartao, bool statusUsado) async {
+    List<Cartao> cartoes = await this.findCardsCurrentUser();
+    String email = await SharedPrefService.getCurrentUser();
+
+    var indexOld =
+        cartoes.indexWhere((element) => element.numero == cartao.numero);
+    var oldUltimoUsado =
+        cartoes.firstWhere((element) => element.numero == cartao.numero);
+
+    oldUltimoUsado.foiUsado = false;
+
+    cartoes.insert(indexOld, oldUltimoUsado);
+
+    box.put(email, jsonEncode(cartoes));
+  }
+
+  @override
+  Future<Cartao?> findUltimoCartaoUsadoUsuario() async {
+    try {
+      List<Cartao> cartoes = await this.findCardsCurrentUser();
+
+      var ultimoCartaoUtilizado =
+          cartoes.firstWhereOrNull((element) => element.foiUsado == true);
+
+      return ultimoCartaoUtilizado;
+    } catch (e) {
+      return null;
     }
   }
 }

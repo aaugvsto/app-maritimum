@@ -144,11 +144,6 @@ class PessoaRepository implements IPessoaRepository {
   }
 
   @override
-  Future<bool> createOrUpdate() {
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Pessoa?> findById(int id) {
     throw UnimplementedError();
   }
@@ -161,5 +156,11 @@ class PessoaRepository implements IPessoaRepository {
   @override
   Future<Cartao?> getCartoes(String email) {
     return Future.value(null);
+  }
+
+  @override
+  Future<bool> createOrUpdate(Pessoa t) {
+    // TODO: implement createOrUpdate
+    throw UnimplementedError();
   }
 }

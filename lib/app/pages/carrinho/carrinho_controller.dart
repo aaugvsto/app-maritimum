@@ -1,27 +1,35 @@
 import 'package:app/app/models/cruzeiro_pedido_model.dart';
+import 'package:app/app/models/cupom_model.dart';
 import 'package:app/app/models/resumo_pedido.dart';
 import 'package:app/app/pages/carrinho/widgets/list_tile_pedido_widget.dart';
 import 'package:app/app/repositories/interfaces/icarrinho_repository.dart';
+import 'package:app/app/repositories/interfaces/icupom_repository.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CarrinhoController extends GetxController with StateMixin {
   final ICarrinhoRepository _carrinhoRepository;
+  final ICupomRepository _cupomRepository;
 
-  CarrinhoController(this._carrinhoRepository);
+  CarrinhoController(this._carrinhoRepository, this._cupomRepository);
 
   double subTotal = 0;
   double descontos = 0;
+  List<CruzeiroPedido> listaPedidos = [];
+  late TextEditingController cupomController;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    getCarrinhoUser();
+    cupomController = TextEditingController();
+    await getListaCarrinhoCurUser();
+    await getCarrinhoUser();
   }
 
   Future<void> getCarrinhoUser() async {
     change([], status: RxStatus.loading());
 
-    var carrinho = await _carrinhoRepository.getListaUserPedidos();
+    var carrinho = listaPedidos;
     List<ListTilePedido> carrinhoPedidos = [];
 
     subTotal = 0;
@@ -38,8 +46,8 @@ class CarrinhoController extends GetxController with StateMixin {
 
     var resumo = ResumoPedido(
       subTotal: subTotal,
-      descontos: descontos,
-      vlrTotal: subTotal - descontos,
+      descontos: (subTotal * descontos),
+      vlrTotal: subTotal - (subTotal * descontos),
     );
 
     var res = carrinhoPedidos.isNotEmpty
@@ -67,5 +75,17 @@ class CarrinhoController extends GetxController with StateMixin {
     onInit();
 
     update();
+  }
+
+  Future<void> findCupom(String cupom) async {
+    Cupom? res = await _cupomRepository.findByCodigo(cupom.trim());
+    if (res != null) {
+      descontos = res.porcentagemDesconto / 100;
+      onInit();
+    }
+  }
+
+  Future<void> getListaCarrinhoCurUser() async {
+    listaPedidos = await _carrinhoRepository.getListaUserPedidos();
   }
 }

@@ -4,7 +4,6 @@ import 'package:app/app/repositories/interfaces/icards_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 class AddCartaoController extends GetxController with StateMixin {
   final ICardRepository _cardRepository;
@@ -24,11 +23,32 @@ class AddCartaoController extends GetxController with StateMixin {
   String bandeira = '';
   String bandeiraPath = '';
 
+  RxString selectedTipoCartao = 'Crédito'.obs;
+  List<DropdownMenuItem> listDropdownItems = [];
+
   @override
   void onInit() {
     super.onInit();
     dtValidadeController = TextEditingController();
+    getListDropdown();
     change([], status: RxStatus.empty());
+  }
+
+  getListDropdown() {
+    final List<String> _dropdownItems = ['Crédito', 'Débito'];
+
+    for (String item in _dropdownItems) {
+      listDropdownItems.add(
+        DropdownMenuItem<String>(
+          value: item,
+          child: Text(item),
+        ),
+      );
+    }
+  }
+
+  setSelected(String value) {
+    selectedTipoCartao.value = value;
   }
 
   Future<void> findCardBrand(int cardNumber) async {
@@ -155,8 +175,9 @@ class AddCartaoController extends GetxController with StateMixin {
       numero: numeroCartao,
       cvv: cvv,
       dtValidade: DateTime.parse(dataCorreta),
-      apelido: apelido,
+      apelido: apelido == '' ? null : apelido,
       nomeTitular: nomeTitular,
+      tipo: selectedTipoCartao.value,
     );
   }
 }

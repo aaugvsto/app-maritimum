@@ -1,6 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 class Cartao {
   final String bandeira;
   final String? bandeiraPath;
@@ -9,15 +9,19 @@ class Cartao {
   final DateTime dtValidade;
   final String? apelido;
   final String nomeTitular;
+  final String tipo;
+  bool foiUsado;
 
   Cartao({
     required this.bandeira,
-    required this.bandeiraPath,
+    this.bandeiraPath,
     required this.numero,
     required this.cvv,
     required this.dtValidade,
-    required this.apelido,
+    this.apelido,
     required this.nomeTitular,
+    required this.tipo,
+    this.foiUsado = false,
   });
 
   Cartao copyWith({
@@ -28,6 +32,8 @@ class Cartao {
     DateTime? dtValidade,
     String? apelido,
     String? nomeTitular,
+    String? tipo,
+    bool? foiUsado,
   }) {
     return Cartao(
       bandeira: bandeira ?? this.bandeira,
@@ -37,6 +43,8 @@ class Cartao {
       dtValidade: dtValidade ?? this.dtValidade,
       apelido: apelido ?? this.apelido,
       nomeTitular: nomeTitular ?? this.nomeTitular,
+      tipo: tipo ?? this.tipo,
+      foiUsado: foiUsado ?? this.foiUsado,
     );
   }
 
@@ -49,18 +57,23 @@ class Cartao {
       'dtValidade': dtValidade.millisecondsSinceEpoch,
       'apelido': apelido,
       'nomeTitular': nomeTitular,
+      'tipo': tipo,
+      'foiUsado': foiUsado,
     };
   }
 
   factory Cartao.fromMap(Map<String, dynamic> map) {
     return Cartao(
       bandeira: map['bandeira'] as String,
-      bandeiraPath: map['bandeiraPath'],
+      bandeiraPath:
+          map['bandeiraPath'] != null ? map['bandeiraPath'] as String : null,
       numero: map['numero'] as String,
       cvv: map['cvv'] as String,
       dtValidade: DateTime.fromMillisecondsSinceEpoch(map['dtValidade'] as int),
       apelido: map['apelido'] != null ? map['apelido'] as String : null,
       nomeTitular: map['nomeTitular'] as String,
+      tipo: map['tipo'] as String,
+      foiUsado: map['foiUsado'] == null ? false : map['foiUsado'] as bool,
     );
   }
 
@@ -71,7 +84,7 @@ class Cartao {
 
   @override
   String toString() {
-    return 'Cartao(bandeira: $bandeira, bandeiraPath: $bandeiraPath, numero: $numero, cvv: $cvv, dtValidade: $dtValidade, apelido: $apelido, nomeTitular: $nomeTitular)';
+    return 'Cartao(bandeira: $bandeira, bandeiraPath: $bandeiraPath, numero: $numero, cvv: $cvv, dtValidade: $dtValidade, apelido: $apelido, nomeTitular: $nomeTitular, tipo: $tipo, foiUsado: $foiUsado)';
   }
 
   @override
@@ -84,7 +97,9 @@ class Cartao {
         other.cvv == cvv &&
         other.dtValidade == dtValidade &&
         other.apelido == apelido &&
-        other.nomeTitular == nomeTitular;
+        other.nomeTitular == nomeTitular &&
+        other.tipo == tipo &&
+        other.foiUsado == foiUsado;
   }
 
   @override
@@ -95,6 +110,8 @@ class Cartao {
         cvv.hashCode ^
         dtValidade.hashCode ^
         apelido.hashCode ^
-        nomeTitular.hashCode;
+        nomeTitular.hashCode ^
+        tipo.hashCode ^
+        foiUsado.hashCode;
   }
 }

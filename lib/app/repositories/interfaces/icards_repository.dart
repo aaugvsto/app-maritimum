@@ -13,4 +13,6 @@ abstract class ICardRepository {
     bool isUpdate = false,
   });
   Future<bool> removeCard(String numeroCartao);
+  void setUltimoCartaoUsado(Cartao cartao);
+  Future<Cartao?> findUltimoCartaoUsadoUsuario();
 }

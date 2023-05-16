@@ -74,4 +74,11 @@ class CarrinhoRepository implements ICarrinhoRepository {
 
     return pedido;
   }
+
+  @override
+  Future<void> limparCarrinhoUsuarioLogado() async {
+    var userEmail = await SharedPrefService.getCurrentUser();
+
+    await box.put(userEmail, jsonEncode([]));
+  }
 }

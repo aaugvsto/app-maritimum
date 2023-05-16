@@ -2,10 +2,13 @@ import 'package:app/app/pages/add_cartao/add_cartao_bindings.dart';
 import 'package:app/app/pages/add_cartao/add_cartao_page.dart';
 import 'package:app/app/pages/dashboard/dashboard_bidings.dart';
 import 'package:app/app/pages/dashboard/dashboard_page.dart';
+import 'package:app/app/pages/loading_transacao/loading_transacao_page.dart';
 import 'package:app/app/pages/login/login_bidings.dart';
 import 'package:app/app/pages/login/login_page.dart';
 import 'package:app/app/pages/metodos_pagamentos/metodos_pagamento_bidings.dart';
 import 'package:app/app/pages/metodos_pagamentos/metodos_pagamento_page.dart';
+import 'package:app/app/pages/pagamento/pagamento_bindings.dart';
+import 'package:app/app/pages/pagamento/pagamento_page.dart';
 import 'package:app/app/pages/register/register_bindings.dart';
 import 'package:app/app/pages/register/register_page.dart';
 import 'package:app/app/pages/viagem_detalhe/viagem_detalhe_bindings.dart';
@@ -69,6 +72,15 @@ class _AppState extends State<App> {
             name: '/add-cartao',
             page: () => AddCartaoPage(),
             binding: AddCartaoBindings(),
+          ),
+          GetPage(
+            name: '/pagamento',
+            page: () => PagamentoPage(),
+            binding: PagamentoBidings(),
+          ),
+          GetPage(
+            name: '/loading-transacao',
+            page: () => TransacaoLoadingPage(),
           )
         ],
       ),
