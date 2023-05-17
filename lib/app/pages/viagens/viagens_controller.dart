@@ -27,21 +27,22 @@ class ViagensController extends GetxController with StateMixin {
   Future<void> findCruzeiros({String? nome}) async {
     change([], status: RxStatus.loading());
 
-    var curUser = await SharedPrefService.getCurrentUser();
+    // TODO: Fazer repository de favoritos
+    //var curUser = await SharedPrefService.getCurrentUser();
 
     try {
-      final userFavorites = await _pessoaRepository.getFavorites(curUser);
+      //final userFavorites = await _pessoaRepository.getFavorites(curUser);
       final cruzeiros = await _cruzeiroService.getAll();
 
-      if (cruzeiros.isNotEmpty && userFavorites.isNotEmpty) {
-        for (Cruzeiro cruzeiro in cruzeiros) {
-          bool isFavorited = userFavorites
-              .where((element) => element!.id == cruzeiro.id)
-              .isNotEmpty;
+      // if (cruzeiros.isNotEmpty && userFavorites.isNotEmpty) {
+      //   for (Cruzeiro cruzeiro in cruzeiros) {
+      //     bool isFavorited = userFavorites
+      //         .where((element) => element!.id == cruzeiro.id)
+      //         .isNotEmpty;
 
-          if (isFavorited) cruzeiro.userFavorited = true;
-        }
-      }
+      //     if (isFavorited) cruzeiro.userFavorited = true;
+      //   }
+      // }
 
       var filteredList = [];
       if (nome != null) {

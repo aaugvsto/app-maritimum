@@ -14,6 +14,7 @@ class CarrinhoRepository implements ICarrinhoRepository {
   @override
   Future<void> addInCarrinhoUser(CruzeiroPedido cruzeiroPedido) async {
     String email = await SharedPrefService.getCurrentUser();
+    box.put(email, jsonEncode([]));
 
     List<CruzeiroPedido> carrinhoUser = await getListaUserPedidos();
 

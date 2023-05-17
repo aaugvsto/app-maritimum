@@ -3,11 +3,12 @@ import 'package:get/get.dart';
 import '../../services/shared_pref_service.dart';
 
 class ContaController extends GetxController with StateMixin {
-  String userName = 'base';
+  String userName = '';
+
   @override
   void onInit() async {
     super.onInit();
-    userName = await SharedPrefService.getCurrentUserName();
+    this.userName = await SharedPrefService.getCurrentUserName();
     update();
   }
 

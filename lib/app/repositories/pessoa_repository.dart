@@ -9,7 +9,7 @@ import 'package:app/app/services/shared_pref_service.dart';
 import 'package:http/http.dart' as http;
 
 class PessoaRepository implements IPessoaRepository {
-  final String _url = '192.168.18.106:3231';
+  final String _url = '192.168.18.253:3231';
 
   @override
   Future<bool> login(String email, String password) async {
@@ -144,23 +144,7 @@ class PessoaRepository implements IPessoaRepository {
   }
 
   @override
-  Future<Pessoa?> findById(int id) {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<Pessoa>> getAll() {
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Cartao?> getCartoes(String email) {
     return Future.value(null);
-  }
-
-  @override
-  Future<bool> createOrUpdate(Pessoa t) {
-    // TODO: implement createOrUpdate
-    throw UnimplementedError();
   }
 }

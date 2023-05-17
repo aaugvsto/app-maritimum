@@ -31,7 +31,7 @@ class ViagemDetalheController extends GetxController with StateMixin {
     );
 
     await _carrinhoRepository.addInCarrinhoUser(pedido);
-    await _carrinhoController.getCarrinhoUser();
+    _carrinhoController.onInit();
     change([], status: RxStatus.success());
   }
 }

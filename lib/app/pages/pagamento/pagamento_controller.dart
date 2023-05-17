@@ -2,6 +2,7 @@ import 'package:app/app/models/cartao_model.dart';
 import 'package:app/app/models/cruzeiro_pedido_model.dart';
 import 'package:app/app/models/passagem_model.dart';
 import 'package:app/app/models/transacao_model.dart';
+import 'package:app/app/pages/loading_transacao/loading_transacao_controller.dart';
 import 'package:app/app/repositories/interfaces/icards_repository.dart';
 import 'package:app/app/repositories/interfaces/icarrinho_repository.dart';
 import 'package:app/app/repositories/interfaces/ipasssagem_repository.dart';
@@ -16,12 +17,13 @@ class PagamentoController extends GetxController with StateMixin {
   final ITransacaoRepository _transacaoRepository;
   final IPassagemRepository _passagemRepository;
   final ICarrinhoRepository _carrinhoRepository;
-
+  final LoadingTransacaoController _loadingTransacaoController;
   PagamentoController(
     this._cardRepository,
     this._passagemRepository,
     this._transacaoRepository,
     this._carrinhoRepository,
+    this._loadingTransacaoController,
   );
 
   List<Cartao> cartoes = [];
@@ -109,26 +111,30 @@ class PagamentoController extends GetxController with StateMixin {
     return widgetList;
   }
 
-  Future<bool> submeterPedido(
+  Future<void> submeterPedido(
     Cartao cartao,
     int numParcelas,
     double valorTotal,
   ) async {
     Get.offAllNamed('/loading-transacao');
-    change('Realizando Transação...', status: RxStatus.loading());
+    _loadingTransacaoController.changeState('Realizando Transação...');
+
     bool resultTransacao =
         await this._realizarTransacao(cartao, numParcelas, valorTotal);
+
     if (resultTransacao) {
-      change('Criando passagens...', status: RxStatus.loading());
+      _loadingTransacaoController.changeState('Criando passagens...');
       bool resultCriarPassagens = await this._criarPassagens();
+
       if (resultCriarPassagens) {
         await _carrinhoRepository.limparCarrinhoUsuarioLogado();
-        change('Sucesso!', status: RxStatus.success());
-        return true;
+        _loadingTransacaoController.changeState('Sucesso!');
+
+        await Future.delayed(Duration(seconds: 5), () {
+          Get.offAllNamed('/home');
+        });
       }
     }
-
-    return false;
   }
 
   Future<bool> _realizarTransacao(

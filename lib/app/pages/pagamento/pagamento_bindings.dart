@@ -1,3 +1,4 @@
+import 'package:app/app/pages/loading_transacao/loading_transacao_controller.dart';
 import 'package:app/app/pages/pagamento/pagamento_controller.dart';
 import 'package:app/app/repositories/card_repository.dart';
 import 'package:app/app/repositories/interfaces/icards_repository.dart';
@@ -11,7 +12,8 @@ class PagamentoBidings extends Bindings {
   void dependencies() {
     Get.lazyPut<ICardRepository>(() => CardRepository(Hive.box('cartoes')));
     Get.lazyPut<ITransacaoRepository>(() => TransacaoRepository());
-    Get.lazyPut<PagamentoController>(() =>
-        PagamentoController(Get.find(), Get.find(), Get.find(), Get.find()));
+    Get.lazyPut<LoadingTransacaoController>(() => LoadingTransacaoController());
+    Get.lazyPut<PagamentoController>(() => PagamentoController(
+        Get.find(), Get.find(), Get.find(), Get.find(), Get.find()));
   }
 }

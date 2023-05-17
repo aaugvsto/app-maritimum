@@ -55,21 +55,14 @@ class ContaPage extends GetView<ContaController> {
                 ),
                 title: Text('Meus Dados'),
               ),
-              const ListTile(
+              ListTile(
+                onTap: () => Get.toNamed('/meus-pedidos'),
                 contentPadding: EdgeInsets.all(0),
                 leading: Icon(
                   Icons.shopping_bag_outlined,
                   color: Colors.teal,
                 ),
                 title: Text('Meus Pedidos'),
-              ),
-              const ListTile(
-                contentPadding: EdgeInsets.all(0),
-                leading: Icon(
-                  Icons.headset_mic_outlined,
-                  color: Colors.teal,
-                ),
-                title: Text('Atendimento'),
               ),
               ListTile(
                 onTap: () => Get.toNamed('metodos-pagamento'),
@@ -79,6 +72,14 @@ class ContaPage extends GetView<ContaController> {
                   color: Colors.teal,
                 ),
                 title: Text('Pagamento'),
+              ),
+              const ListTile(
+                contentPadding: EdgeInsets.all(0),
+                leading: Icon(
+                  Icons.headset_mic_outlined,
+                  color: Colors.teal,
+                ),
+                title: Text('Atendimento'),
               ),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
