@@ -3,7 +3,7 @@ import 'package:app/app/repositories/interfaces/itransacao_repository.dart';
 import 'package:http/http.dart' as http;
 
 class TransacaoRepository implements ITransacaoRepository {
-  final String _url = '192.168.18.253:3231';
+  final String _url = '192.168.18.106:3231';
 
   @override
   Future<bool> create(Transacao transacao) async {

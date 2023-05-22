@@ -8,6 +8,12 @@ class MinhasPassagensController extends GetxController with StateMixin {
 
   MinhasPassagensController(this._passagemRepository);
 
+  @override
+  onInit() async {
+    super.onInit();
+    await getPassagensUsuarioLogado();
+  }
+
   getPassagensUsuarioLogado() async {
     change([], status: RxStatus.loading());
     String emailUsuarioLogado = await SharedPrefService.getCurrentUser();

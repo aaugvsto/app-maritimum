@@ -119,7 +119,8 @@ class PagamentoController extends GetxController with StateMixin {
     Get.offAllNamed('/loading-transacao');
     _loadingTransacaoController.changeState('Realizando Transação...');
 
-    bool resultTransacao =
+    late bool resultTransacao;
+    resultTransacao =
         await this._realizarTransacao(cartao, numParcelas, valorTotal);
 
     if (resultTransacao) {
@@ -154,6 +155,10 @@ class PagamentoController extends GetxController with StateMixin {
     bool reqTransacao = await _transacaoRepository.create(transacao);
 
     return reqTransacao;
+  }
+
+  Future<bool> _criarPedido() async {
+    return true;
   }
 
   Future<bool> _criarPassagens() async {

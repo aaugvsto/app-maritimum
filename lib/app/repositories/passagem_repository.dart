@@ -5,7 +5,7 @@ import 'package:app/app/repositories/interfaces/ipasssagem_repository.dart';
 import 'package:http/http.dart' as http;
 
 class PassagemRepository implements IPassagemRepository {
-  final String _url = '192.168.18.253:3231';
+  final String _url = '192.168.18.106:3231';
 
   @override
   Future<bool> createOrUpdate(Passagem passagem) async {

@@ -73,8 +73,6 @@ class CarrinhoController extends GetxController with StateMixin {
     await _carrinhoRepository.updateOrRemovePedido(pedido);
 
     onInit();
-
-    update();
   }
 
   Future<void> findCupom(String cupom) async {
